@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>351199992560-r7lf4i98919qgjnlp7chsavh5lomjil6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.351199992560-r7lf4i98919qgjnlp7chsavh5lomjil6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>351199992560-20iocejid7d0nalscn386edbhijsvm8g.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBBmNflNBDOxDcWwauNPSmQygYZIQkQ-Dk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>351199992560</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.AkaalWebSoft</string>
+	<key>PROJECT_ID</key>
+	<string>web-school-manager</string>
+	<key>STORAGE_BUCKET</key>
+	<string>web-school-manager.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:351199992560:ios:4c7a5b6f02557b47</string>
+	<key>DATABASE_URL</key>
+	<string>https://web-school-manager.firebaseio.com</string>
+</dict>
+</plist>

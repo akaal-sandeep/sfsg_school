@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "351199992560",
+    "firebase_url": "https://web-school-manager.firebaseio.com",
+    "project_id": "web-school-manager",
+    "storage_bucket": "web-school-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351199992560:android:3906563196275d47084035",
+        "android_client_info": {
+          "package_name": "com.AkaalWebSoft.SfsjSchool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351199992560-02kj9bpdem3k23jdq6mmopa5ndcop1re.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYn05EKuvgKk6WAOJNg23Gd7BrCutAolM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351199992560-02kj9bpdem3k23jdq6mmopa5ndcop1re.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351199992560-3e754tdp3s7l73uer3bbfbin10nouajp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AkaalWebSoft.WebSchoolManager"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351199992560:android:c47aa3897c2b230c",
+        "android_client_info": {
+          "package_name": "com.AkaalWebSoft.WebSchoolManager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351199992560-20iocejid7d0nalscn386edbhijsvm8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AkaalWebSoft.WebSchoolManager",
+            "certificate_hash": "002cdfdf13c86d29e3353e522912d42f4ab7423b"
+          }
+        },
+        {
+          "client_id": "351199992560-02kj9bpdem3k23jdq6mmopa5ndcop1re.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYn05EKuvgKk6WAOJNg23Gd7BrCutAolM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351199992560-02kj9bpdem3k23jdq6mmopa5ndcop1re.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351199992560-3e754tdp3s7l73uer3bbfbin10nouajp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AkaalWebSoft.WebSchoolManager"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351199992560:android:ed8dd2a862658590084035",
+        "android_client_info": {
+          "package_name": "com.AkaalWebSoft.WebSchoolManager.wisdom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351199992560-02kj9bpdem3k23jdq6mmopa5ndcop1re.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYn05EKuvgKk6WAOJNg23Gd7BrCutAolM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351199992560-02kj9bpdem3k23jdq6mmopa5ndcop1re.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351199992560-3e754tdp3s7l73uer3bbfbin10nouajp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AkaalWebSoft.WebSchoolManager"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

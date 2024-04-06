@@ -176,8 +176,8 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   await GetStorage.init();
- // await Firebase.initializeApp();
-  //await PushNotificationService().setupInteractedMessage();
+ await Firebase.initializeApp();
+  await PushNotificationService().setupInteractedMessage();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(

@@ -19,9 +19,9 @@ import 'constants/string_constants.dart';
 import 'local_storage/local_storage.dart';
 
 Future getFcmToken()async{
- // String? data = await FirebaseMessaging.instance.getToken();
- // myLog(label: "device fcm token", value: data.toString());
-return "data";
+ String? data = await FirebaseMessaging.instance.getToken();
+ myLog(label: "device fcm token", value: data.toString());
+return data;
 }
 
 platFormName(){

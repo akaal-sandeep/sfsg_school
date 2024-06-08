@@ -183,8 +183,8 @@ class _UploadHomeWorkState extends State<UploadHomeWork> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "${widget.subjectName}, ${widget.className}, ${getTimeFormat(selectedDate)}",
-                        style: CommonDecoration.subHeaderStyle,
+                        "${widget.subjectName}, ${widget.className},\n ${getTimeFormat(selectedDate)}",
+                        style: CommonDecoration.subHeaderStyle.copyWith(fontSize: 17),
                       ),
                       SizedBox(width: 5,),
                       if(widget.student==true&& widget.fromClassWork==null && widget.fromHolidayWork==null)

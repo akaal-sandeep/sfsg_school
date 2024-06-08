@@ -2,9 +2,12 @@ class GetClassHomeWorkWithReadStatusModel {
   String? statuscode;
   String? message;
   List<Data>? data;
+  String? classMasterId;
+  String? classSectionMasterId;
+  String? className;
 
   GetClassHomeWorkWithReadStatusModel(
-      {this.statuscode, this.message, this.data});
+      {this.statuscode, this.message, this.data,this.className,this.classSectionMasterId, this.classMasterId});
 
   GetClassHomeWorkWithReadStatusModel.fromJson(Map<String, dynamic> json) {
     statuscode = json['statuscode'];
@@ -40,6 +43,7 @@ class Data {
   bool showDocuments =false;
   List<DocumentsList>? documentsList;
 
+
   Data(
       {this.id,
         this.homeWorkDate,
@@ -49,7 +53,8 @@ class Data {
         this.isLocked,
         this.isHomeWorkRead,
         this.documentCount,
-        this.documentsList});
+        this.documentsList,
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['Id'];

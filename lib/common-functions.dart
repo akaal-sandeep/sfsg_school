@@ -79,8 +79,23 @@ Future<String> covertFileAsBytesReception({required String fileSource})async{
 }
 
 bool isTeacher(){
- return LocalStorage()
+  return LocalStorage()
       .read(key: StringConstants.userType) == StringConstants.teacherType;
+}
+
+bool isCoordinator(){
+  return LocalStorage()
+      .read(key: StringConstants.userType) == StringConstants.coordinatorType;
+}
+
+bool isParent(){
+  return LocalStorage()
+      .read(key: StringConstants.userType) == StringConstants.parentType;
+}
+
+bool isPrincipal(){
+  return LocalStorage()
+      .read(key: StringConstants.userType) == StringConstants.principleType;
 }
 
 Map<String,dynamic> listMapIndex( String label,int index){
@@ -91,10 +106,7 @@ Map<String,dynamic> listMapIndex( String label,int index){
   return value;
 }
 
-bool isParent(){
-  return LocalStorage()
-      .read(key: StringConstants.userType) == StringConstants.parentType;
-}
+
 
 viewDocument({required String fileSource,required bool fromUrl,bool? back})async{
   myLog(label: "fileUrl", value: fileSource);

@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:web_school_manager/common-functions.dart';
+import 'package:web_school_manager/controller/coordinator_controller.dart';
 import 'package:web_school_manager/controller/parent_controller.dart';
+import 'package:web_school_manager/controller/teacher_controller.dart';
 import 'package:web_school_manager/drawer/module/contact_us.dart';
+import 'package:web_school_manager/teacher/holiday_homework_teacher/holiday_home_work_subject.dart';
 import 'package:web_school_manager/utility/custom_decoration.dart';
 import 'package:web_school_manager/utility/helper_widget.dart';
 import 'package:web_school_manager/widget/button.dart';
@@ -41,8 +44,9 @@ class _StudentHomeworkState extends State<StudentHomework> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: (widget.title=="Home Work")?InkWell(
-        onTap: (){
+      floatingActionButton: (widget.title == "Home Work")
+          ? InkWell(
+        onTap: () {
           getTime().then((value) {
             time = value;
             ParentController().getClassHomeWork(
@@ -50,10 +54,11 @@ class _StudentHomeworkState extends State<StudentHomework> {
               homeWorkDate:
               apiTimeFormat(DateTime.parse(time.toString())),
             );
-            myLog(label: "My Selected date", value:apiTimeFormat(DateTime.parse(time.toString())),
+            myLog(
+              label: "My Selected date",
+              value: apiTimeFormat(DateTime.parse(time.toString())),
             );
-            setState(() {
-            });
+            setState(() {});
           });
         },
         child: Container(
@@ -64,9 +69,76 @@ class _StudentHomeworkState extends State<StudentHomework> {
             borderRadius: BorderRadius.circular(100),
             color: Colors.blue,
           ),
-          child: Text(DateFormat("dd MMM, yyyy").format(time),style: CommonDecoration.listStyle.copyWith(color: Colors.white),),
+          child: Text(
+            DateFormat("dd MMM, yyyy").format(time),
+            style:
+            CommonDecoration.listStyle.copyWith(color: Colors.white),
+          ),
         ),
-      ):SizedBox(),
+      )
+          : isTeacher()
+          ? InkWell(
+        onTap: () {
+          TeacherController()
+              .getHolidayHomeworkSubjectList(
+              classMasterId: widget
+                  .getClassHomeWorkWithReadStatusModel
+                  .classMasterId ??
+                  "",
+              classSectionMasterId: widget
+                  .getClassHomeWorkWithReadStatusModel
+                  .classSectionMasterId ??
+                  "")
+              .then((value) {
+            Get.to(() => HolidayWorkSubject(
+              getHolidayHomeworkSubjectListModel: value,
+              classMasterId: widget
+                  .getClassHomeWorkWithReadStatusModel
+                  .classMasterId ??
+                  "",
+              sectionMasterId: widget
+                  .getClassHomeWorkWithReadStatusModel
+                  .classSectionMasterId ??
+                  "",
+              className: widget
+                  .getClassHomeWorkWithReadStatusModel
+                  .className ??
+                  "",
+            ))!
+                .then((value) async {
+              widget.getClassHomeWorkWithReadStatusModel =
+              await CoordinatorController()
+                  .getHolidayHomeWorkWithReadStatus(
+                  className: widget
+                      .getClassHomeWorkWithReadStatusModel
+                      .className,
+                  classMasterId: widget
+                      .getClassHomeWorkWithReadStatusModel
+                      .classMasterId ??
+                      "",
+                  classSectionMasterId: widget
+                      .getClassHomeWorkWithReadStatusModel
+                      .classSectionMasterId ??
+                      "",
+                  shouldNavigate: false);
+              setState(() {});
+            });
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            boxShadow: myShadow,
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.blue,
+          ),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+      )
+          : SizedBox(),
       body: myPadding(
         child: Column(
           children: [

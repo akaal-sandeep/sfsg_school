@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:web_school_manager/common-functions.dart';
+import 'package:web_school_manager/controller/coordinator_controller.dart';
 import 'package:web_school_manager/controller/teacher_controller.dart';
 import 'package:web_school_manager/teacher/holiday_homework_teacher/holiday_home_work_subject.dart';
 import 'package:web_school_manager/utility/helper_widget.dart';
@@ -29,6 +31,15 @@ class HolidayWorkClasses extends StatelessWidget {
             itemBuilder: (context, i) {
               return InkWell(
                   onTap: () {
+                    if (isPrincipal()||isTeacher()) {
+                      CoordinatorController().getHolidayHomeWorkWithReadStatus(
+                          shouldNavigate: null,
+                          className: "${model.data![i].className} - ${model.data![i].classSectionName}",
+                          classMasterId: model.data![i].classMasterId.toString(),
+                          classSectionMasterId: model.data![i].classSectionMasterId.toString());
+                      return;
+                    }
+
                     TeacherController()
                         .getHolidayHomeworkSubjectList(
                             classMasterId:

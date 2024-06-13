@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:web_school_manager/controller/parent_controller.dart';
 import 'package:web_school_manager/utility/helper_widget.dart';
 import '../constants/string_constants.dart';
@@ -39,6 +40,9 @@ class PushNotificationService {
   // It is assumed that all messages contain a data field with the key 'type'
   Future<void> setupInteractedMessage() async {
     await Firebase.initializeApp();
+
+   PermissionStatus status = await Permission.notification.request();
+   myLog(label: "Permission noti", value: status);
 // Get any messages which caused the application to open from a terminated state.
     // If you want to handle a notification click when the app is terminated, you can use `getInitialMessage`
     // to get the initial message, and depending in the remoteMessage, you can decide to handle the click

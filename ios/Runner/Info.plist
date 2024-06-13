@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Web School Manager</string>
+	<string>SFSJ School</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -31,9 +31,14 @@
 	<key>MinimumOSVersion</key>
 	<string>13.0</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Need to access camera</string>
+	<string>Our app requires to access the camera in order to upload any document. We allow the user to directly capture the image and upload it to our portal. Any teacher or student can upload photo of the homework etc</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app need to upload documents</string>
+	<string>Our app requires to access the gallery in order to upload any document. We allow the user to directly capture the image and upload it to our portal. Any teacher or student can upload photo of the homework etc</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

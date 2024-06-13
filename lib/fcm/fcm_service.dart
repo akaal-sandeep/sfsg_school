@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,7 +8,6 @@ import 'package:web_school_manager/utility/helper_widget.dart';
 import '../constants/string_constants.dart';
 import '../local_storage/local_storage.dart';
 import '../parent_model/get_student_list_r1_model.dart';
-
 
 // ignore: slash_for_doc_comments
 /**
@@ -33,12 +33,49 @@ import '../parent_model/get_student_list_r1_model.dart';
  *   is called when user clicks on the notification.
  *
  * */
-class PushNotificationService {
 
+late AndroidNotificationChannel channel;
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+
+void showFlutterNotification(RemoteMessage message) {
+  RemoteNotification? notification = message.notification;
+  AndroidNotification? android = message.notification?.android;
+  if (notification != null && android != null) {
+    flutterLocalNotificationsPlugin.show(
+      notification.hashCode,
+      notification.title,
+      notification.body,
+      payload: jsonEncode(message.data),
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          icon: android.smallIcon,
+          playSound: true,
+        ),
+      ),
+    );
+  }
+}
+
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // await Firebase.initializeApp();
+  // showFlutterNotification(message);
+
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  print('Handling a background message ${message.messageId}');
+}
+
+class PushNotificationService {
   RemoteMessage? _remoteMessage;
+
   // It is assumed that all messages contain a data field with the key 'type'
   Future<void> setupInteractedMessage() async {
     await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 // Get any messages which caused the application to open from a terminated state.
     // If you want to handle a notification click when the app is terminated, you can use `getInitialMessage`
     // to get the initial message, and depending in the remoteMessage, you can decide to handle the click
@@ -56,16 +93,16 @@ class PushNotificationService {
     // This function is called when the app is in the background and user clicks on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       // Get.toNamed(NOTIFICATIOINS_ROUTE);
-     onPressNavigation(message);
+      onPressNavigation(message);
     });
     await enableIOSNotifications();
     await registerNotificationListeners();
   }
 
   registerNotificationListeners() async {
-    AndroidNotificationChannel channel = androidNotificationChannel();
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+    channel = androidNotificationChannel();
+    flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>()
@@ -76,13 +113,17 @@ class PushNotificationService {
       requestBadgePermission: false,
       requestAlertPermission: false,
     );
-    var initSetttings = InitializationSettings(android: androidSettings, iOS: iOSSettings);
+    var initSetttings =
+    InitializationSettings(android: androidSettings, iOS: iOSSettings);
     flutterLocalNotificationsPlugin.initialize(initSetttings,
-      );
+        onDidReceiveNotificationResponse: (v) {
+          RemoteMessage remoteMessage = RemoteMessage(data: jsonDecode(v.payload!));
+          onPressNavigation(remoteMessage);
+        });
 // onMessage is called when the app is in foreground and a notification is received
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
-         _remoteMessage = message;
-        myLog(label: "notification ", value: message?.data.toString());
+      _remoteMessage = message;
+      myLog(label: "notification ", value: message?.data.toString());
 
       RemoteNotification? notification = message?.notification;
       AndroidNotification? android = message?.notification?.android;
@@ -91,8 +132,8 @@ class PushNotificationService {
           notification.hashCode,
           notification.title,
           notification.body,
+          payload: jsonEncode(message?.data),
           NotificationDetails(
-
             android: AndroidNotificationDetails(
               channel.id,
               channel.name,
@@ -103,7 +144,6 @@ class PushNotificationService {
         );
       }
     });
-
   }
 
   enableIOSNotifications() async {
@@ -122,29 +162,41 @@ class PushNotificationService {
   );
 }
 
-onPressNavigation(RemoteMessage remoteMessage){
-  StudentData studentData= StudentData.fromJson(jsonDecode(remoteMessage.data['user']));
-  LocalStorage().writeModel(key: StringConstants.parentProfileModel, model: studentData);
+onPressNavigation(RemoteMessage remoteMessage) {
+  // StudentData studentData =
+  //     StudentData.fromJson(jsonDecode(remoteMessage.data['user']));
+  // LocalStorage()
+  //     .writeModel(key: StringConstants.parentProfileModel, model: studentData);
 
-  switch(remoteMessage.data['type']){
-    case "1":ParentController().getClassHomeWorkWithReadStatus();
-         break;
-    case "2":ParentController().getLessonPlanListForStudent();
-          break;
+// {USER_TYPE: T, CLASS_HOME_WORK_ID: 21912, INSTITUTE_CODE: AWSS, NOTIFICATION_TYPE: HomeWorkApprovalStatusForTeacher}
+
+  if(remoteMessage.data['USER_TYPE']=="P"){
+    switch (remoteMessage.data['NOTIFICATION_TYPE']) {
+      case "ParentHomeWork":
+        ParentController().getClassHomeWorkWithReadStatus();
+        break;
+      case "LessonPlan":
+        ParentController().getLessonPlanListForStudent();
+        break;
+    }
   }
+
+
+
   // ParentController().getClassHomeWorkWithReadStatus();
 }
 
 /// In background this function will work
 /// do it on splash
-checkSplash() async {
+Future checkSplash() async {
   RemoteMessage? initialMessage =
   await FirebaseMessaging.instance.getInitialMessage();
   // If the message also contains a data property with a "type" of "chat",
   // navigate to a chat screen
-  if (initialMessage != null && initialMessage.data['key'] == 'background') {
-
+  if (initialMessage != null && initialMessage.data.containsKey('type')) {
+    onPressNavigation(initialMessage);
   }
+  return false;
 }
 
 ///data is important when you want notification in your app in background and terminate state

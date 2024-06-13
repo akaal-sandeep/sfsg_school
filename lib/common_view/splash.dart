@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_school_manager/common_view/login_type.dart';
+import 'package:web_school_manager/fcm/fcm_service.dart';
 import 'package:web_school_manager/generated/assets.dart';
 
 import '../constants/string_constants.dart';
@@ -59,7 +60,12 @@ class _SplashState extends State<Splash> {
     if(parentToken!=null){
       myLog(label: "parent access token", value: parentToken);
       LocalStorage().write(key: StringConstants.userType,data: StringConstants.parentType);
-      ParentController().getStudentListr1();
+      checkSplash().then((value){
+        if(value==false){
+          ParentController().getStudentListr1();
+          return;
+        }
+      });
       return;
     }
 

@@ -34,7 +34,7 @@ class _LoginTypeState extends State<LoginType> {
 
   @override
   void initState() {
-   // checkSplash();
+    checkSplash();
     // TODO: implement initState
     super.initState();
   }

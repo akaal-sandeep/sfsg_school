@@ -637,8 +637,10 @@ class ParentController {
   Future<EmployeeListForAppointmentModel>
       getEmployeeListForAppointment() async {
     showLoader();
+    StudentData studentData =
+    LocalStorage().readStudentModel(key: StringConstants.profileModel);
     var response = await ApiClient()
-        .postWithToken(ApiUrls.GetEmployeeListForAppointmentRequest, {});
+        .postWithToken(ApiUrls.GetEmployeeListForStudent, {"AdmissionNumber":studentData.admissionNumber.toString(),});
     EmployeeListForAppointmentModel employeeListForAppointmentModel =
         EmployeeListForAppointmentModel.fromJson(response);
     hideLoader();

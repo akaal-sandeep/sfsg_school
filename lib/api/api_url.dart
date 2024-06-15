@@ -125,6 +125,8 @@ class ApiUrls{
   static const GetClassHomeWorkList = baseUrl+"GetClassHomeWork";
   static const GetBagPlanListForStudent = baseUrl+"GetBagPlanListForStudent";
 
+  static const GetEmployeeListForStudent = baseUrl+"GetEmployeeListForStudent";
+
 
 
 

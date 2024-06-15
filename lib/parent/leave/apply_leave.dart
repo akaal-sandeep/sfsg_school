@@ -46,7 +46,7 @@ class _ApplyLeaveState extends State<ApplyLeave> {
         context: context,
         initialDate: start,
         firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(Duration(days: 10)));
+        lastDate: DateTime.now().add(Duration(days: 365)));
 
     return picker;
   }

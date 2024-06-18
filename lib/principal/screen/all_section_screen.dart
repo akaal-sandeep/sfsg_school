@@ -117,27 +117,29 @@ class _AllSectionHomeworkScreenState extends State<AllSectionHomeworkScreen> {
                               },
                               child: Row(
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.allSectionHomeWorkModel.data?[i]
-                                                .subjectName ??
-                                            "",
-                                        style: CommonDecoration.listStyle,
-                                      ),
-                                      Text(
-                                        "Homework : ${widget.allSectionHomeWorkModel.data?[i].homeWork ?? ""}",
-                                        style: CommonDecoration.smallLabel,
-                                      ),
-                                      Text(
-                                        "Documents count : ${widget.allSectionHomeWorkModel.data?[i].documentCount ?? ""}",
-                                        style: CommonDecoration.smallLabel,
-                                      ),
-                                    ],
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.allSectionHomeWorkModel.data?[i]
+                                                  .subjectName ??
+                                              "",
+                                          style: CommonDecoration.listStyle,
+                                        ),
+                                        Text(
+                                          "Homework : ${widget.allSectionHomeWorkModel.data?[i].homeWork ?? ""}",
+                                          style: CommonDecoration.smallLabel,
+                                        ),
+                                        Text(
+                                          "Documents count : ${widget.allSectionHomeWorkModel.data?[i].documentCount ?? ""}",
+                                          style: CommonDecoration.smallLabel,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Spacer(),
+                                  // Spacer(),
                                   RotatedBox(
                                     quarterTurns: widget.allSectionHomeWorkModel
                                                 .data?[i].showDocument ==

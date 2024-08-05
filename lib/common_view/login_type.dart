@@ -92,7 +92,10 @@ class _LoginTypeState extends State<LoginType> {
           SizedBox(
             height: 15,
           ),
-
+          loginTypeCard(
+              assets: "assets/icons/management.png",
+              type: "Co-ordinator",
+              loginType: StringConstants.coordinatorType),
 
           Expanded(child: SizedBox()),
        //   akaalWebSoft(),

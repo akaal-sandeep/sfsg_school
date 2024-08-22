@@ -15,51 +15,61 @@ import '../utility/helper_widget.dart';
 import '../widget/header.dart';
 
 class CoordinatorDashboard extends StatelessWidget {
-   CoordinatorDashboard({Key? key}) : super(key: key);
+  CoordinatorDashboard({Key? key}) : super(key: key);
 
- List  _icon = [
-   "assets/icons/class-room.png",
-   "assets/icons/home-work.png",
-     "assets/icons/attendance.png",
-   "assets/icons/bag_components.png",
-   ];
+  List _icon = [
+    "assets/icons/class-room.png",
+    "assets/icons/home-work.png",
+    "assets/icons/attendance.png",
+    "assets/icons/teacher-attendance.png",
+    "assets/icons/bag_components.png",
+  ];
 
- List  _label = [
-   "Pending Homework",
-   "Uploaded Homework",
-   "Student Attendance",
-   "Bag Components",
- ];
+  List _label = [
+    "Pending Homework",
+    "Uploaded Homework",
+    "Student Attendance",
+    'Teachers Attendance'
+    "Bag Components",
+  ];
 
-  Future<bool> checkExit()async{
+  Future<bool> checkExit() async {
     bool myExit = false;
-    var exit =await  switchDialog(exit: myExit)
-        .then((value){
+    var exit = await switchDialog(exit: myExit).then((value) {
       return value;
     });
     return exit;
   }
 
-  getStudentList(){
-    CoordinatorController().getClassList(navigate: false,uploaded: false).then((coordinatorClass) {
+  getStudentList() {
+    CoordinatorController()
+        .getClassList(navigate: false, uploaded: false)
+        .then((coordinatorClass) {
       TeacherClassesListModel teacherClassListModel = TeacherClassesListModel();
       teacherClassListModel = coordinatorClass;
-      PrincipalController().getStudentAttendanceDetails(fromCoordinated: true).then((studentList) {
-        StudentAttendanceDetailsModel studentAttendanceDetails = StudentAttendanceDetailsModel();
+      PrincipalController()
+          .getStudentAttendanceDetails(fromCoordinated: true)
+          .then((studentList) {
+        StudentAttendanceDetailsModel studentAttendanceDetails =
+            StudentAttendanceDetailsModel();
         studentAttendanceDetails = studentList;
-        StudentAttendanceDetailsModel coordinatorClassList =  StudentAttendanceDetailsModel();
+        StudentAttendanceDetailsModel coordinatorClassList =
+            StudentAttendanceDetailsModel();
         coordinatorClassList.data = [];
-        for(int i=0;i<teacherClassListModel.data!.length;i++){
-          for(int j=0;j<studentAttendanceDetails.data!.length;j++){
-            if(teacherClassListModel.data![i].classMasterId==studentAttendanceDetails.data![j].cLASSMASTERID){
+        for (int i = 0; i < teacherClassListModel.data!.length; i++) {
+          for (int j = 0; j < studentAttendanceDetails.data!.length; j++) {
+            if (teacherClassListModel.data![i].classMasterId ==
+                    studentAttendanceDetails.data![j].cLASSMASTERID &&
+                teacherClassListModel.data![i].classSectionMasterId ==
+                    studentAttendanceDetails.data![j].cLASSSECTIONMASTERID) {
               coordinatorClassList.data!.add(studentAttendanceDetails.data![j]);
             }
           }
         }
         Get.to(() => StudentAttendanceSummary(
-          studentAttendanceDetails: coordinatorClassList,
-          fromCoordinator: true,
-        ));
+              studentAttendanceDetails: coordinatorClassList,
+              fromCoordinator: true,
+            ));
       });
     });
   }
@@ -75,7 +85,8 @@ class CoordinatorDashboard extends StatelessWidget {
         child: Scaffold(
           key: UserController.drawerState,
           drawer: ParentDrawer(),
-          body: myPadding(child: Column(
+          body: myPadding(
+              child: Column(
             children: [
               CommonHeader(
                 title: "Coordinator",
@@ -94,7 +105,6 @@ class CoordinatorDashboard extends StatelessWidget {
                         crossAxisSpacing: 10.0,
                         mainAxisSpacing: 10.0),
                     itemBuilder: (BuildContext context, int index) {
-
                       return AnimationConfiguration.staggeredGrid(
                         position: index,
                         duration: const Duration(milliseconds: 1000),
@@ -104,25 +114,30 @@ class CoordinatorDashboard extends StatelessWidget {
                           child: FadeInAnimation(
                             child: InkWell(
                               onTap: () {
-
-                                switch(index){
-                                  case 0 :
-                                    CoordinatorController().getClassList(uploaded: false);
+                                switch (index) {
+                                  case 0:
+                                    CoordinatorController()
+                                        .getClassList(uploaded: false);
                                     break;
-                                  case 1 :
-                                    CoordinatorController().getClassList(uploaded: true);
+                                  case 1:
+                                    CoordinatorController()
+                                        .getClassList(uploaded: true);
                                     break;
                                   case 2:
                                     getStudentList();
                                     break;
                                   case 3:
-                                    CoordinatorController().getClassListForBagComponent();
+                                    PrincipalController().getTeacherList();;
+                                    break;
+                                  case 4:
+                                    CoordinatorController()
+                                        .getClassListForBagComponent();
                                     break;
                                 }
-
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4,vertical: 14),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 4, vertical: 14),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),

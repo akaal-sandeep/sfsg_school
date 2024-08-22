@@ -27,6 +27,7 @@ class Assets {
   static const String commonVideo = 'assets/common/video.png';
   static const String fontsPoppinsRegular = 'assets/fonts/Poppins-Regular.ttf';
   static const String icons11 = 'assets/icons/1-1.png';
+  static const String iconsAbsentStudentNew = 'assets/icons/absent-student-new.png';
   static const String iconsApplyLeave = 'assets/icons/apply-leave.png';
   static const String iconsAppointment = 'assets/icons/appointment.png';
   static const String iconsAttendance = 'assets/icons/attendance.png';
@@ -67,6 +68,7 @@ class Assets {
   static const String iconsImg4 = 'assets/icons/img_4.png';
   static const String iconsImg5 = 'assets/icons/img_5.png';
   static const String iconsImg6 = 'assets/icons/img_6.png';
+  static const String iconsImg7 = 'assets/icons/img_7.png';
   static const String iconsInwardPass = 'assets/icons/inward_pass.png';
   static const String iconsInwardPassList = 'assets/icons/inward_pass_list.png';
   static const String iconsIosGreen = 'assets/icons/ios_green.png';
@@ -88,7 +90,9 @@ class Assets {
   static const String iconsOtpImage = 'assets/icons/otp_image.png';
   static const String iconsParent = 'assets/icons/parent.png';
   static const String iconsParentNotification = 'assets/icons/parent_notification.png';
+  static const String iconsPendingStudentNew = 'assets/icons/pending-student-new.png';
   static const String iconsPhoneNumber = 'assets/icons/phone-number.png';
+  static const String iconsPresentStudentNew = 'assets/icons/present-student-new.png';
   static const String iconsPrincipal = 'assets/icons/principal.png';
   static const String iconsProfile = 'assets/icons/profile.png';
   static const String iconsReception = 'assets/icons/reception.png';
@@ -116,6 +120,7 @@ class Assets {
   static const String iconsTeacherNotification = 'assets/icons/teacher_notification.png';
   static const String iconsTimeTable = 'assets/icons/time-table.png';
   static const String iconsTimeline = 'assets/icons/timeline.png';
+  static const String iconsTotalStudentNew = 'assets/icons/total-student-new.png';
   static const String iconsVector1 = 'assets/icons/vector-1.png';
   static const String iconsVideo = 'assets/icons/video.png';
   static const String iconsWarning = 'assets/icons/warning.png';

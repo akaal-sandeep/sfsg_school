@@ -23,10 +23,14 @@ import 'package:web_school_manager/teacher/teacher_dashboard.dart';
 import 'package:web_school_manager/teacher_model/teacher_module_model.dart';
 import 'package:web_school_manager/utility/helper_widget.dart';
 
+import '../bio_metric.dart';
+
 class UserController {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static GlobalKey<ScaffoldState> drawerState = GlobalKey<ScaffoldState>();
+
+  BioMetric bioMetric = BioMetric();
 
   Future login(
       {required String instiCode,
@@ -91,6 +95,7 @@ class UserController {
     hideLoader();
     myLog(label: "my response ss ", value: jsonEncode(response));
     LoginSuccessModel loginSuccessModel = LoginSuccessModel.fromJson(response);
+    await bioMetric.bioMetricDialog();
     if (loginSuccessModel.statuscode == "success") {
       switch(userType){
         case StringConstants.teacherType:

@@ -37,4 +37,6 @@ class StringConstants{
   static const sortByRollNo = "sortByRollNo";
   static const sortByAdmission = "sortByAdmission";
   static const sortByAlphabet = "sortByAlphabet";
+
+  static const bioMetric = "bioMetric";
 }

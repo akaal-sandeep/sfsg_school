@@ -191,6 +191,8 @@ Future logoutDialog() {
           ));
 }
 
+
+
 Widget lockModule() {
   return Container(
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 14),

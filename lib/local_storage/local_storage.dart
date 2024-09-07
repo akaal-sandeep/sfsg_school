@@ -25,9 +25,8 @@ class LocalStorage {
   }
 
   writeModel({required String key, required var model}) {
-
-    if(key == StringConstants.parentProfileModel){
-      final controller  = Get.put(ParentStateController());
+    if (key == StringConstants.parentProfileModel) {
+      final controller = Get.put(ParentStateController());
       controller.updateStudentData(model: model);
     }
     storage.write(key, model.toJson());
@@ -55,18 +54,16 @@ class LocalStorage {
   readParentModuleList({required String key}) {
     var data = storage.read(key);
     ParentModuleListModel parentModuleListModel =
-        ParentModuleListModel.fromJson(data);
+    ParentModuleListModel.fromJson(data);
     return parentModuleListModel;
   }
 
   readStudentModel({required String key}) {
-
     var data = storage.read(StringConstants.parentProfileModel);
     StudentData studentData = StudentData();
     if (data != null) {
       var value = StudentData.fromJson(data);
       studentData = value;
-
     }
     return studentData;
   }
@@ -74,7 +71,7 @@ class LocalStorage {
   readPrincipalModuleList() {
     var data = storage.read(StringConstants.principalModuleList);
     PrincipalModuleListModel principalModuleListModel =
-        PrincipalModuleListModel();
+    PrincipalModuleListModel();
     if (data != null) {
       var value = PrincipalModuleListModel.fromJson(data);
       principalModuleListModel = value;
@@ -89,7 +86,7 @@ class LocalStorage {
   readPrincipalProfileModel() {
     var json = storage.read(StringConstants.principalProfileModel);
     PrincipalProfileModel principalProfileModel =
-        PrincipalProfileModel.fromJson(json);
+    PrincipalProfileModel.fromJson(json);
     return principalProfileModel;
   }
 
@@ -99,8 +96,17 @@ class LocalStorage {
 
   readStudentList() {
     var json = storage.read(StringConstants.studentList);
-    GetStudentListR1Model getStudentListR1Model = GetStudentListR1Model.fromJson(json);
+    GetStudentListR1Model getStudentListR1Model = GetStudentListR1Model
+        .fromJson(json);
     return getStudentListR1Model;
+  }
+
+  bool? isBioMetricEnable() {
+    return storage.read(StringConstants.bioMetric);
+  }
+
+  saveBioMetricStatus(bool status) {
+     storage.write(StringConstants.bioMetric, status);
   }
 
   eraseData() {
@@ -112,13 +118,13 @@ class LocalStorage {
     } else if (userType == StringConstants.parentType) {
       storage.write(StringConstants.parentAccessToken, null);
       myLog(label: "Parent logout", value: "done");
-    }else if(userType == StringConstants.coordinatorType){
+    } else if (userType == StringConstants.coordinatorType) {
       storage.write(StringConstants.coordinatorAccessToken, null);
       myLog(label: "coodi logout", value: "done");
-    } else if(userType == StringConstants.principleType){
+    } else if (userType == StringConstants.principleType) {
       storage.write(StringConstants.principalAccessToken, null);
       myLog(label: "Principal logout", value: "done");
-    }else{
+    } else {
       storage.write(StringConstants.receptionAccessToken, null);
       myLog(label: "reception logout", value: "done");
     }

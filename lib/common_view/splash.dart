@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:web_school_manager/bio_metric.dart';
 import 'package:web_school_manager/common_view/login_type.dart';
 import 'package:web_school_manager/fcm/fcm_service.dart';
 import 'package:web_school_manager/generated/assets.dart';
@@ -22,8 +25,11 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
 
+  BioMetric bioMetric = BioMetric();
+
   @override
   void initState() {
+    bioMetric.init();
     Timer(Duration(seconds: 3), () {
       checkLogin();
     });
@@ -31,16 +37,34 @@ class _SplashState extends State<Splash> {
     super.initState();
   }
 
-  checkLogin(){
+  checkLogin()async{
 
     ///---------principal---------------------------
 
     var token = LocalStorage().read(key: StringConstants.principalAccessToken);
     myLog(label: "principal access token", value: token.toString());
     if(token!=null){
-      myLog(label: "principal access token", value: token);
-      LocalStorage().write(key: StringConstants.userType,data: StringConstants.principleType);
-      PrincipalController().getStudentTeacherAttendanceSummary();
+
+
+      if(LocalStorage().isBioMetricEnable()==null){
+        await bioMetric.bioMetricDialog();
+      }
+      else if(LocalStorage().isBioMetricEnable()==true){
+        bool auth =  await bioMetric.factorTwoAuth();
+        if(auth){
+          myLog(label: "principal access token", value: token);
+          LocalStorage().write(key: StringConstants.userType,data: StringConstants.principleType);
+          PrincipalController().getStudentTeacherAttendanceSummary();
+        }else{
+          exit(0);
+        }
+      }
+      else{
+        myLog(label: "principal access token", value: token);
+        LocalStorage().write(key: StringConstants.userType,data: StringConstants.principleType);
+        PrincipalController().getStudentTeacherAttendanceSummary();
+      }
+
       return;
     }
 
@@ -48,24 +72,63 @@ class _SplashState extends State<Splash> {
     var tokenTeacher = LocalStorage().read(key: StringConstants.teacherAccessToken);
     myLog(label: "teacher access token", value: tokenTeacher.toString());
     if(tokenTeacher!=null){
-      LocalStorage().write(key: StringConstants.userType,data: StringConstants.teacherType);
-      TeacherController().getEmployeeProfile().then((value){
-        Get.offAll(()=>TeacherDashboard());
-      });
+
+      if(LocalStorage().isBioMetricEnable()==null){
+        await bioMetric.bioMetricDialog();
+      }
+      else if(LocalStorage().isBioMetricEnable()==true){
+        bool auth =  await bioMetric.factorTwoAuth();
+        if(auth){
+          LocalStorage().write(key: StringConstants.userType,data: StringConstants.teacherType);
+          TeacherController().getEmployeeProfile().then((value){
+            Get.offAll(()=>TeacherDashboard());
+          });
+        }else{
+          exit(0);
+        }
+      }
+      else{
+        LocalStorage().write(key: StringConstants.userType,data: StringConstants.teacherType);
+        TeacherController().getEmployeeProfile().then((value){
+          Get.offAll(()=>TeacherDashboard());
+        });
+      }
+
       return;
     }
     ///---------------parent-----------------
     var parentToken = LocalStorage().read(key: StringConstants.parentAccessToken);
     myLog(label: "parent access token", value: parentToken.toString());
     if(parentToken!=null){
-      myLog(label: "parent access token", value: parentToken);
-      LocalStorage().write(key: StringConstants.userType,data: StringConstants.parentType);
-      checkSplash().then((value){
-        if(value==false){
-          ParentController().getStudentListr1();
-          return;
-        }
-      });
+      if(LocalStorage().isBioMetricEnable()==null){
+      await bioMetric.bioMetricDialog();
+      }
+      else if(LocalStorage().isBioMetricEnable()==true){
+      bool auth =  await bioMetric.factorTwoAuth();
+      if(auth){
+        myLog(label: "parent access token", value: parentToken);
+        LocalStorage().write(key: StringConstants.userType,data: StringConstants.parentType);
+        checkSplash().then((value){
+          if(value==false){
+            ParentController().getStudentListr1();
+            return;
+          }
+        });
+      }else{
+        exit(0);
+      }
+      }
+      else{
+        myLog(label: "parent access token", value: parentToken);
+        LocalStorage().write(key: StringConstants.userType,data: StringConstants.parentType);
+        checkSplash().then((value){
+          if(value==false){
+            ParentController().getStudentListr1();
+            return;
+          }
+        });
+      }
+
       return;
     }
 
